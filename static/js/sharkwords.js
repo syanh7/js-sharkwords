@@ -1,3 +1,5 @@
+
+
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 const WORDS = [
   'strawberry',
@@ -20,12 +22,19 @@ let numWrong = 0;
 //
 const createDivsForChars = (word) => {
   // Replace this with your code
+  for (const ch of word) {
+    $('#word-container').append(`<div class="letter-box ${ch}"></div>`);
+  }
+
 };
 
 // Loop over each letter in `ALPHABET` and generate buttons.
 //
 const generateLetterButtons = () => {
   // Replace this with your code
+  for (const ch of ALPHABET) {
+    $('#letter-buttons').append(`<button class='${ch}'>${ch}</button>`);
+  }
 };
 
 // Set the `disabled` property of `buttonEl` to `true.
@@ -34,18 +43,27 @@ const generateLetterButtons = () => {
 //
 const disableLetterButton = (buttonEl) => {
   // Replace this with your code
+  $(buttonEl).attr('disabled', true);
 };
 
 // Return `true` if `letter` is in the word.
 //
 const isLetterInWord = (letter) => {
   // Replace this with your code
+  if ($(`div.${letter}`)[0] !== undefined) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 // Called when `letter` is in word. Update contents of divs with `letter`.
 //
 const handleCorrectGuess = (letter) => {
   // Replace this with your code
+  $(`div.${letter}`).html(`${letter}`);
+
+
 };
 
 // Called when `letter` is not in word.
@@ -55,6 +73,11 @@ const handleCorrectGuess = (letter) => {
 //
 const handleWrongGuess = () => {
   // Replace this with your code
+  numWrong += 1;
+  if (numWrong >= 5) {
+    $('button').attr('disabled', true);
+  }
+  $('img').attr('src', `/static/images/guess${numWrong}.png`)
 };
 
 //  Reset game state. Called before restarting the game.
